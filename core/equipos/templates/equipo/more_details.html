@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block title %} Detalles {% endblock title %}
+{%block header_title %} Detalles {% endblock header_title %}
+{% block class_details %} class="active" {% endblock class_details %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-9">
+        <section class="panel panel-default">
+            <div class="panel-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nombre equipo</th>
+                                <th>Service tag</th>
+                                <th>Usuario</th>
+                                <th>Site</th>
+                                <th>Departamento</th>
+                                <th>Área</th>
+                                <th>Ubicación exacta</th>
+                                <th>Garantía</th>
+                                <th>En inventario</th>
+                                <th hidden>ID</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for equipo in page_obj %}
+                            <tr>
+                                <td>{{equipo.id_equipo_para_entregar.nombre_equipo}}</td>
+                                <td>
+                                    {{equipo.id_equipo_para_entregar.id_equipo.service_tag}}
+                                </td>
+                                <td>{{equipo.id_equipo_para_entregar.usuario_final}}</td>
+                                <td>{{equipo.site}}</td>
+                                <td>{{equipo.departamento}}</td>
+                                <td>{{equipo.area}}</td>
+                                <td>{{equipo.ubicacion_exacta}}</td>
+                                <td>
+                                    {{equipo.id_equipo_para_entregar.id_equipo.fecha_termino_garantia}}
+                                </td>
+                                <td hidden>{{equipo.id}}</td>
+                                <th class="center">
+                                    <input type="checkbox" name="{{equipo.id}}" {%if equipo.registro_en_inventario %}
+                                        checked {% endif %} id="" />
+                                </th>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="right">
+                        <input class="btn btn-primary" type="submit" value="Guardar" />
+                    </div>
+                </form>
+            </div>
+        </section>
+        <div class="row">
+            <div class="col-md-9 center">{% include "assets/pagination.html" %}</div>
+
+            <div class="col-md-3 right">
+                <p>{{cantidad}} registro(s)</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Filtros
+            </div>
+            <div class="panel-body">
+                <form role="form" method="GET">
+
+                    <div class="radio">
+
+                        <label for="Inv">
+                            
+                            <input type="checkbox" name="inventario" value="True" id="Inv" 
+                            {% if inventario  %}
+                              checked
+                            {% endif %}>
+                            Inventariado</label>
+                    </div>
+                    <div class="center">
+                        <input class="btn btn-info" type="submit" value="Filtrar">
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

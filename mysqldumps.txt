@@ -1,0 +1,5 @@
+Restore:
+    mysql -u [username] -p [DATABASE name] < [backup filename].sql
+
+Backup:
+    mysqldump -u [username] -p [DATABASE name] > [backup filename].sql

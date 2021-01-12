@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Detalles
+{% endblock title %}
+
+{% block header %}
+Hola equipos
+{% endblock header %}
+
+{% block rutas %}
+<li><a href="/">
+        <em class="fas fa-desktop"></em>
+    </a></li>
+<li class="active">Equipo</li>
+<li><a href="/editar/{{id}}">
+        <em class="fas fa-edit"></em>
+    </a></li>
+<li class="active">Editar</li>
+{% endblock rutas %}
+
+
+{% block header_title %}
+{% if editar %}
+Editar entrega
+{% else %}
+Asignando {{model}}
+{% endif %}
+{% endblock header_title %}
+
+
+
+{% block content %}
+
+{% if saved %}
+<div class="row">
+    <div class="col-lg-9">
+        <div class="alert bg-success">
+            Datos actualizados correctamente
+            <span onclick="this.parentElement.style.display='none';" class="pull-right">
+                <em class="fas fa-lg fa-times"></em>
+            </span>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<div class="row">
+    <div class="col-md-9">
+        <div class="panel">
+            <div class="panel-body">
+                <form class="form-django" role=form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{form}}
+                    
+                    <input type="text" name="form" value="form_principal" hidden>
+                    <div class="row">
+                        <div class="col-md-12 right">
+                            <input class="btn btn-primary" type="submit"
+                                value="{% if editar %}Guardar {% else %}Asignar {% endif %} ">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-3">
+        {% if editar %}
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                Opciones
+            </div>
+            <div class="panel-body">
+
+                <div class="center">
+                    <button class="btn btn-info" data-toggle="modal" data-target="#details">Datos adicionales</button>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Documentos
+            </div>
+            <div class="panel-body">
+                <div class="row">
+
+                    {% if categoria == 'LT' and editar %}
+                    <div class="col-md-6 center">
+                        <a href="/generar/?nombre_equipo={{form.nombre_equipo.value}}">
+                            <i class="fas fa-file-word"></i>
+                            <p>Salida</p>
+                        </a>
+                    </div>
+                    {% endif %}
+                    
+                    {% if solicitud != '' %}
+                    <div class="col-md-6 center">
+                        <a href="/media/{{solicitud}}">
+                            <i class="fas fa-file-word"></i>
+                            <p>Solicitud</p>
+                        </a>
+                    </div>
+                    {% endif%}
+
+                    {% if checklist != '' and editar %}
+                    <div class="col-md-6 center">
+                        <a href="/media/{{checklist}}">
+                            <i class="fas fa-file-word"></i>
+                            <p>Checklist</p>
+                        </a>
+                    </div>
+                    {% endif %}
+
+                    {% if certificado != '' and editar %}
+                    <div class="col-md-6 center">
+                        <a href="/media/{{certificado}}">
+                            <i class="fas fa-file-word"></i>
+                            <p>Certificado</p>
+                        </a>
+                    </div>
+                    {% endif%}
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+
+    {% include "assets/form_modal_details.html" %}
+
+
+
+</div>
+
+{% endblock content %}

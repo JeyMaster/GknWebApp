@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}
+Pool
+{% endblock title %}
+
+
+{% block header %}
+Equipos pool
+{% endblock header %}
+
+{% block class_pool %}class="active"{% endblock class_pool %}
+
+{% block content %}
+<div class="pool">
+    <div class="title">
+        <h1>Equipos Pool</h1>
+      </div>
+    <table class="table">
+        <thead class="table-head">
+            <th>Nombre equipo</th>
+            <th>Service tag</th>
+            <th>Modelo</th>
+            <th>Usuario Final</th>
+            <th>Asignar</th>
+        </thead>
+        <tbody class="table-body">
+            {% for equipo in page_obj %}
+            <td>{{equipo.nombre_equipo}}</td>
+            <td>{{equipo.id_equipo.service_tag}}</td>
+            <td>{{equipo.id_equipo.id_stock.modelo}}</td>
+            <td>{{equipo.usuario_final}}</td>
+            <td><a class="btn" href="/pool/asignar/{{equipo.nombre_equipo}}">ASIGNAR</a></td>
+            {% endfor %}
+        </tbody>
+    </table>
+    <p>{{equipos.count}} Equipo(s)</p>
+
+    {% include "assets/pagination.html" %}
+</div>
+
+<div class="filters">
+    sexo
+</div>
+{% endblock content %}

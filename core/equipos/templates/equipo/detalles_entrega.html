@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+Equipos
+{% endblock title %}
+
+{% block attbSearh %}
+placeholder="Search computer details" id="detallesEquipo"
+{% endblock attbSearh %}
+
+{% block class_equipo %}
+class="active"
+{% endblock class_equipo %}
+
+{% block rutas %}
+<li><a href="/">
+    <em class="fas fa-desktop"></em>
+  </a></li>
+<li class="active">Equipo</li>
+
+{% endblock rutas %}
+
+{% block header_title %}
+Equipos
+{% endblock header_title %}
+{% block content %}
+
+<div class="row">
+  <div class="col-md-9">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <table class="table" id="tDetalles">
+          <thead class="table-head">
+            <tr>
+              <th>Nombre equipo</th>
+              <th>Service tag</th>
+              <th>Modelo</th>
+              <th>Usuario final</th>
+              <th>Fecha preparación</th>
+              <!--<th>Configurado por</th>-->
+              <th>Estado</th>
+              <!--<th>Preparado por</th>-->
+            </tr>
+
+          </thead>
+          <tbody class="table-body" id=tDetallesBody>
+            {% for detalle in page_obj %}
+            <tr>
+              <td><a
+                  href="/editar/{{detalle.id_equipo_para_entregar}}">{{detalle.id_equipo_para_entregar.nombre_equipo}}</a>
+              </td>
+              <td>{{detalle.id_equipo_para_entregar.id_equipo.service_tag}}</td>
+              <td>{{detalle.id_equipo_para_entregar.id_equipo.id_stock.modelo}}</td>
+
+              <td>{{detalle.id_equipo_para_entregar.usuario_final}}</td>
+              <td>{{detalle.fecha_preparacion}}</td>
+              <!--<td>{{detalle.configurado_por}}</td>-->
+              <td>{{detalle.id_equipo_para_entregar.id_equipo.get_estado_display}}</td>
+              <!--<td>{{detalle.preparado_por}}</td>-->
+
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row ">
+      <div class="col-md-9 center ">
+        {% include "assets/pagination.html" %}
+      </div>
+      <div class="col-md-3 right">
+        <div>
+          <p>{{cantidad}} equipo(s)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        Filtros
+      </div>
+      <div class="panel-body">
+        <form role="form" method="get">
+
+          <p class="filter-sub-title">Estado</p>
+          <div class="filter-item radio {% if dic_filter.Et %}filter-select {%endif%}">
+            
+            <label for="Et">
+              <input type="radio" name="estado" value="Et" id="Et" {% ifequal estado 'Et' %} checked {%endifequal%}>
+              Equipo entregado</label>
+          </div>
+
+          <div class="radio filter-item {% if dic_filter.Pr %}filter-select {%endif%}">
+            <label for="Pr">
+              <input type="radio" name="estado" value="Pr" id="Pr" {% ifequal estado 'Pr' %} checked {%endifequal%}>
+              En preparacion</label>
+          </div>
+
+          <div class="radio filter-item {% if dic_filter.Ua %}filter-select {%endif%}">
+            <label for="Ua">
+            <input type="radio" name="estado" value="Ua" id="Ua" {% ifequal estado 'Ua' %} checked {%endifequal%}>
+              Usuario asignado</label>
+          </div>
+
+          <div class="radio filter-item {% if dic_filter.Ua %}filter-select {%endif%}">
+            <label for="all_et">
+              <input type="radio" name="estado" value="all" id="all_et" {% ifequal estado '' %} checked {%endifequal%}>
+              Todos</label>
+          </div>
+
+          <p class="filter-sub-title">Categoria</p>
+          <div class="radio filter-item">
+            <label for="LT">
+              <input type="radio" name="categoria" value="LT" id="LT" {% if categoria == 'LT' %} checked {%endif%}>
+              Latop</label>
+          </div>
+          <div class="radio filter-item">
+            <label for="PC">
+              <input type="radio" name="categoria" value="PC" id="PC" {% if categoria == 'PC' %} checked {%endif%}>
+              Desktop</label>
+          </div>
+          <div class="radio filter-item">
+            <label for="all_cat">
+              <input type="radio" name="categoria" value="all" id="all_cat"
+              {% if dic_filter.categoria == 'all' or categoria == '' %} checked{%endif%}>
+              Todas</label>
+          </div>
+          <div class="filter-item">
+            <a href="?">Limpiar filtros</a>
+          </div>
+          <div class="center">
+            <input class="btn btn-info" type="submit" value="Filtar">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock content %}

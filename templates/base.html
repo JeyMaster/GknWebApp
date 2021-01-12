@@ -1,0 +1,102 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'lib/w3schools/css/w3.css' %}">
+    <link href="{% static 'lib/lumino-admin/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
+        integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+    <link href="{% static 'lib/lumino-admin/css/datepicker3.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/lumino-admin/css/styles.css' %}" rel="stylesheet">
+    <!--Custom Font-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+    <link rel="stylesheet" href=" {% static 'css/main.css' %}">
+
+    <title>{% block title %}{% endblock title %}</title>
+</head>
+
+<body>
+    blo
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#sidebar-collapse"
+                    aria-expanded="true"><span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span></button>
+                <a class="navbar-brand" href="#"><span>GKN </span>System</a>
+
+            </div>
+        </div><!-- /.container-fluid -->
+    </nav>
+    <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+        <div class="profile-sidebar center">
+            <h4><b>Bienvenido</b></h4>
+            <h4>{{user.username}}</h4>
+            <div class="clear"></div>
+        </div>
+        <div class="divider"></div>
+
+        {% if search %}
+        <form role="search">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search" name="search">
+            </div>
+        </form>
+        {% endif %}
+
+        <ul class="nav menu">
+            <li {% block class_equipo %}{% endblock class_equipo %}><a href="/"><em class="fas fa-desktop">&nbsp;</em>
+                    Equipos</a></li>
+            <li {% block class_stock %}{% endblock class_stock %}><a href="/stock/"><em class="fas fa-box">&nbsp;</em>
+                    Inventario</a></li>
+            <!--<li {% block class_pool %}{% endblock class_pool %}><a href="/pool/"><em class="fas fa-laptop">&nbsp;</em>
+                    Equipos Pool</a></li>-->
+
+            <li {% block class_basura %}{% endblock class_basura %}><a href="/basura/"><em
+                        class="fas fa-trash-alt">&nbsp;</em>Basura electronica</a></li>
+
+            <li {% block class_details %}{% endblock class_details %}><a href="/details/"><em
+                        class="fas fa-file-alt">&nbsp;</em> Detalles</a></li>
+
+            {% if request.user.is_superuser %}
+            <li><a target="_blank" href="/admin/"><em class="fas fa-users-cog">&nbsp;</em> Admin</a></li>
+            {% endif %}
+
+
+            <li><a href="/login/logout"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
+        </ul>
+    </div>
+    <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+        <div class="row">
+            <ol class="breadcrumb">
+                {% block rutas %}
+
+                {% endblock rutas %}
+            </ol>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">{% block header_title %}{% endblock header_title %}</h1>
+            </div>
+        </div>
+        {% block content %}
+        {% endblock content %}
+    </div>
+    <script src="{% static 'lib/lumino-admin/js/jquery-1.11.1.min.js' %} "></script>
+    <script src="{% static 'lib/lumino-admin/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'lib/lumino-admin/js/chart.min.js' %}"></script>
+    <script src="{% static 'lib/lumino-admin/js/chart-data.js' %}"></script>
+    <script src="{% static 'lib/lumino-admin/js/easypiechart.js' %}"></script>
+    <script src="{% static 'lib/lumino-admin/js/easypiechart-data.js' %}"></script>
+    <script src="{% static 'lib/lumino-admin/js/bootstrap-datepicker.js' %}"></script>
+    <script src="{% static 'lib/lumino-admin/js/custom.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

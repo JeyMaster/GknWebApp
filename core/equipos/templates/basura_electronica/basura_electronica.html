@@ -1,0 +1,68 @@
+{% extends "base.html" %} 
+{% block title %} Basura electronica {% endblock title%}
+{% block header_title %} 
+  {% if update %}
+    Actualizar
+  {% else %}
+    Agregar
+  {% endif %}
+{% endblock header_title %}
+
+{%block content %}
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <form class="form-django" method="post">
+          {% csrf_token %}
+          <div class="col-md-6">
+
+            <label for="id_descripcion">Descripción</label>
+            {{form.descripcion}}
+
+            <label for="id_cantidad">Cantidad</label>
+            {{form.cantidad}}
+
+            <label for="id_modelo">Modelo</label>
+            {{form.modelo}}
+
+            <label for="id_marca">Marca</label>
+            {{form.marca}}
+
+            <label for="id_no_serie">No. Serie</label>
+            {{form.no_serie}}
+            
+          </div>
+
+          <div class="col-md-6">
+            <label for="id_planta">Planta</label>
+            {{form.planta}}
+
+            <label for="id_responsable">Responsable</label>
+            {{form.responsable}}
+
+            <label for="id_fecha_registro">Fecha de registro</label>
+            {{form.fecha_registro}}
+
+            <div class="form-group">
+              {{form.recolectado}}
+            <label for="id_recolectado">Recolectado</label>
+            </div>
+
+            <label for="id_fecha_recoleccion">Fecha de recoleccion</label>
+            {{form.fecha_recoleccion}}
+
+            <div class="right">
+              <input class="btn btn-primary" type="submit" value="{% if update %} Actualizar {% else %} Guardar {% endif %}" />
+            </div>
+            
+          </div>
+        
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

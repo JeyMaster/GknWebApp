@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}
+Stock
+{% endblock title %}
+
+{% block header_title %}
+Equipo disponible
+{% endblock header_title %}
+
+{% block class_stock %}class="active"{% endblock class_stock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-9">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <table class="table">
+                    <thead class="table-head">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Marca</th>
+                            <th scope="col">Modelo</th>
+                            <th scope="col">Ram</th>
+                            <th scope="col">Categoria</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-body">
+                        {% for s in page_obj  %}
+                        <tr>
+                            <td>{{s.id_stock}}</th>
+                            <td>{{s.marca}}</td>
+                            <td>{{s.modelo}}</td>
+                            <td>{{s.ram}}</td>
+                            <td>{{s.categoria}}</td>
+                            <td>{{s.cantidad}}</td>
+                            <td>
+                                <button class="btn"><a href="/stock/asignar/{{s.id_stock}}">Asignar </a></button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <div class="center">
+                    {% include "assets/pagination.html" %}
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="right">
+                    <p>{{cantidad}} registro(s)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Filtros
+            </div>
+            <div class="panel-body">
+                <div class="filter">
+                    <p class="filter-sub-title">Categorias</p>
+                    <div class="filter-item">
+                        <a href="?categoria=LT">Laptop</a>
+                    </div>
+                    <div class="filter-item">
+                        <a href="?categoria=PC">Desktop</a>
+                    </div>
+                    <div class="filter-item">
+                        <a href="?">All</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+{% endblock content %}

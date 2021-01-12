@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'lib/lumino-admin/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/lumino-admin/css/styles.css' %}" rel="stylesheet">
+    <title>Login</title>
+</head>
+
+<body>
+
+    <div class="row">
+        <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
+            <div class="login-panel panel panel-default">
+                <div class="panel-heading">Iniciar sesión</div>
+                <div class="panel-body">
+                    <form role="form" method="POST">
+                        {% csrf_token %}
+                        <fieldset>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Usuario" name="username" type="text" id="id_username"
+                                autofocus=""  autocomplete="off" required>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Contraseña" name="password" type="password"
+                                    value="" id="id_password" required>
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="Login">
+                        </fieldset>
+                      
+                    </form>
+                </div>
+            </div>
+        </div><!-- /.col-->
+    </div><!-- /.row -->
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+
+.alert span:hover em{
+    color: gray;
+    transition: 0.3s;
+}
+
+.filter-item{
+    padding-left: 16px;
+}
+
+.filter-sub-title{
+    font-size: 17px;
+    font-style: oblique;
+    margin: 8px 0;
+}
+
+.center{
+    margin-top: 8px;
+    text-align: center;
+}
+
+.center a i{
+    font-size: 32px;
+}
+.center a:hover i{
+    color: gray;
+    transition: 0.3s;
+}
+.right{
+    margin-top: 8px;
+    text-align: right;
+}
+
+.form-django label{
+    margin-top: 12px;
+}
+
+.check{
+    display:block;
+}
+
+.form-django i{
+    font-weight: normal;
+    font-style: italic;
+    font-size: 12px;
+}
+.form-django span{
+    font-weight: normal;
+}

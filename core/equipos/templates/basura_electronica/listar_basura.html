@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block title %}
+Basura
+{% endblock title %}
+
+{% block header_title %}
+Basura Electronica
+{% endblock header_title %}
+
+{% block class_basura %}class="active"{% endblock class_basura %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-9">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <table class="table">
+                    <thead class="table-head">
+                        <tr>
+                            <th>Descripcion</th>
+                            <th>Cantidad</th>
+                            <th>Modelo</th>
+                            <th>Marca</th>
+                            <th>No. Serie</th>
+                            <th>Planta</th>
+                            <th>Responsable</th>
+                            <th>Fecha registro</th>
+                            <th>Recolectado</th>
+                            <th>Fecha recoleccion</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-body">
+
+                        {% for b in  page_obj  %}
+                        <tr>
+                            <td><a href="/basura/update/{{b.id_basura_electronica}}">{{b.descripcion}}</a></td>
+                            <td>{{b.cantidad}}</td>
+                            <td>{{b.modelo}}</td>
+                            <td>{{b.marca}}</td>
+                            <td>{{b.no_serie}}</td>
+                            <td>{{b.get_planta_display}}</td>
+                            <td>{{b.responsable}}</td>
+                            <td>{{b.fecha_registro}}</td>
+                            <td>
+                                {% if b.recolectado %}Si{% else %}No{% endif %}
+                            </td>
+                            <td>{{b.fecha_recoleccion}}</td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <div class="center">
+                    {% include "assets/pagination.html" %}
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="right">
+                    <p>{{cantidad}} registro(s)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Filtros</div>
+            <div class="panel-body">
+                <div class="filters">
+                    <div class="filter">
+                        <form action="">
+
+                            <p class="filter-sub-title">{{filter.form.responsable.label}}</p>
+                            <div class="filter-item">
+                                {{filter.form.responsable}}
+                            </div>
+
+                            <p class="filter-sub-title">{{filter.form.fecha_recoleccion.label}}</p>
+                            <div class="filter-item">
+                                {{filter.form.fecha_recoleccion}}
+                            </div>
+                            <p class="filter-sub-title">{{filter.form.fecha_registro.label}}</p>
+                            <div class="filter-item">
+                                {{filter.form.fecha_registro}}
+                            </div>
+
+                           <div class="filter-item">
+                            
+                          
+                                    <div class="radio">
+                                        {{filter.form.recolectado}}
+                                        <label for="id_recolectado">{{filter.form.recolectado.label}}</label>
+                                    </div>
+                         
+                            
+                           </div>
+                           <div class="filter-item">
+                               <a href="?">Limpiar filtros</a>
+                           </div>
+                            <div class="center">
+                                <input class="btn btn-info" type="submit" value="Filtrar">
+                            </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row center">
+            <a class="btn btn-primary" href="/basura/add/">Agregar registro</a>
+        </div>
+    </div>
+
+</div>
+
+</div>
+{% endblock content %}
